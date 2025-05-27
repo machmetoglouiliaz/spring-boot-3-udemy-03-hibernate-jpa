@@ -19,4 +19,6 @@ public interface StudentDAO {
     int deleteAllWith(String lName);
 
     void delete(int id);
+
+    int deleteAll();
 }

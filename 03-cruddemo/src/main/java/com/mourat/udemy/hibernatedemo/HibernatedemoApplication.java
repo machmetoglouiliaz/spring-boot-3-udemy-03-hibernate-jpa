@@ -19,7 +19,7 @@ public class HibernatedemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO dao){
 		return runner -> {
-			deleteStudentWithId(dao, 3);
+			createMultipleStudents(dao);
 		};
 	}
 
@@ -27,6 +27,7 @@ public class HibernatedemoApplication {
 	public void createMultipleStudents(StudentDAO dao){
 
 		// create 3 students and save them
+		createStudent(dao, "Mourat", "Achoi", "mayrit91@gmail.com");
 		createStudent(dao, "Konstantinos", "Vardakis", "kvar@gmail.com");
 		createStudent(dao, "Seyran", "Osman", "toPontiki@gmail.com");
 		createStudent(dao, "Sali", "Kotza Hasan", "khsali@gmail.com");
@@ -91,5 +92,9 @@ public class HibernatedemoApplication {
 	private void deleteStudentWithId(StudentDAO dao, int id){
 		dao.delete(id);
 		System.out.println("Student with id " + id + " is removed!");
+	}
+
+	private void deleteAllStudents(StudentDAO dao){
+		System.out.println("Number of deleted students is: " + dao.deleteAll());
 	}
 }
