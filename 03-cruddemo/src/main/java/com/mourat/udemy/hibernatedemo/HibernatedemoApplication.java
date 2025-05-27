@@ -17,19 +17,33 @@ public class HibernatedemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO dao){
 		return runner -> {
-			createStudent(dao);
+			readStudentByID(dao, 1);
 		};
 	}
 
-	private void createStudent(StudentDAO dao){
+	// a different version of method than tutorial
+	public void createMultipleStudents(StudentDAO dao){
+
+		// create 3 students and save them
+		createStudent(dao, "Konstantinos", "Vardakis", "kvar@gmail.com");
+		createStudent(dao, "Seyran", "Osman", "toPontiki@gmail.com");
+		createStudent(dao, "Sali", "Kotza Xasan", "khsali@gmail.com");
+	}
+
+	private void createStudent(StudentDAO dao, String fName, String lName, String email){
 
 		// create the student object
-		Student student = new Student("Mourat", "Achoi", "mayrit91@gmail.com");
+		Student student = new Student(fName, lName, email);
 
 		// save the student object
 		dao.save(student);
 
 		//display the id of the created student
 		System.out.println("Student created with ID: " + student.getId());
+	}
+
+	private void readStudentByID(StudentDAO dao, int id){
+		System.out.println("The student data with id " + id + ":");
+		System.out.println(dao.findById(id).toString());
 	}
 }
