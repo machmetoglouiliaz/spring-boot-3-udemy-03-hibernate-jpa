@@ -19,7 +19,7 @@ public class HibernatedemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO dao){
 		return runner -> {
-			getStudentsWithLastName(dao, "Osman");
+			updateStudentWithID(dao, 4, "Ioannis");
 		};
 	}
 
@@ -68,5 +68,18 @@ public class HibernatedemoApplication {
 		for(Student s : students){
 			System.out.println(s.toString());
 		}
+	}
+
+	private void updateStudentWithID(StudentDAO dao, int id, String fName){
+
+		//find the student with the given id
+		Student student = dao.findById(id);
+
+		// make changes on student
+		student.setFirstName(fName);
+		dao.update(student);
+
+		// display student after changes
+		System.out.println(student);
 	}
 }
