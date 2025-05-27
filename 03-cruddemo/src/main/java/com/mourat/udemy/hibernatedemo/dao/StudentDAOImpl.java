@@ -2,6 +2,7 @@ package com.mourat.udemy.hibernatedemo.dao;
 
 import com.mourat.udemy.hibernatedemo.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,5 +60,23 @@ public class StudentDAOImpl implements StudentDAO{
     @Transactional
     public void update(Student student){
         entityManager.merge(student);
+    }
+
+    @Override
+    @Transactional
+    public int deleteAllWith(String lName){
+        Query query = entityManager.createQuery("DELETE FROM Student WHERE lastName=:data");
+        query.setParameter("data", lName);
+        return query.executeUpdate();
+    }
+
+    @Override
+    @Transactional
+    public void delete(int id){
+        // find student with id
+        Student s = entityManager.find(Student.class, id);
+
+        // delete student with the given id
+        entityManager.remove(s);
     }
 }

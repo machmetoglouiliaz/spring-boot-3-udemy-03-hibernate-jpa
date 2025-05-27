@@ -19,7 +19,7 @@ public class HibernatedemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO dao){
 		return runner -> {
-			updateStudentWithID(dao, 4, "Ioannis");
+			deleteStudentWithId(dao, 3);
 		};
 	}
 
@@ -29,7 +29,7 @@ public class HibernatedemoApplication {
 		// create 3 students and save them
 		createStudent(dao, "Konstantinos", "Vardakis", "kvar@gmail.com");
 		createStudent(dao, "Seyran", "Osman", "toPontiki@gmail.com");
-		createStudent(dao, "Sali", "Kotza Xasan", "khsali@gmail.com");
+		createStudent(dao, "Sali", "Kotza Hasan", "khsali@gmail.com");
 	}
 
 	private void createStudent(StudentDAO dao, String fName, String lName, String email){
@@ -46,7 +46,7 @@ public class HibernatedemoApplication {
 
 	private void readStudentByID(StudentDAO dao, int id){
 		System.out.println("The student data with id " + id + ":");
-		System.out.println(dao.findById(id).toString());
+		System.out.println(dao.findById(id));
 	}
 
 	private void readAllStudents(StudentDAO dao){
@@ -56,7 +56,7 @@ public class HibernatedemoApplication {
 
 		// display all students
 		for(Student s : students){
-			System.out.println(s.toString());
+			System.out.println(s);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class HibernatedemoApplication {
 
 		// display all students in the list
 		for(Student s : students){
-			System.out.println(s.toString());
+			System.out.println(s);
 		}
 	}
 
@@ -81,5 +81,15 @@ public class HibernatedemoApplication {
 
 		// display student after changes
 		System.out.println(student);
+	}
+
+	private void deleteStudentsWithLastName(StudentDAO dao, String lName){
+		// delete and show the count of deleted students
+		System.out.println("Quantity of deleted students with last name " + lName + " is " + dao.deleteAllWith(lName));
+	}
+
+	private void deleteStudentWithId(StudentDAO dao, int id){
+		dao.delete(id);
+		System.out.println("Student with id " + id + " is removed!");
 	}
 }
