@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class HibernatedemoApplication {
 
@@ -17,7 +19,7 @@ public class HibernatedemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO dao){
 		return runner -> {
-			readStudentByID(dao, 1);
+			readAllStudents(dao);
 		};
 	}
 
@@ -45,5 +47,16 @@ public class HibernatedemoApplication {
 	private void readStudentByID(StudentDAO dao, int id){
 		System.out.println("The student data with id " + id + ":");
 		System.out.println(dao.findById(id).toString());
+	}
+
+	private void readAllStudents(StudentDAO dao){
+
+		// get list of students
+		List<Student> students = dao.findAll();
+
+		// display all students
+		for(Student s : students){
+			System.out.println(s.toString());
+		}
 	}
 }

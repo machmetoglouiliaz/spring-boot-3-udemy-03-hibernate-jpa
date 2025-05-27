@@ -80,5 +80,5 @@ public class Student {
                 ", email='" + email + '\'' +
                 '}';
     }
-    
+
 }
